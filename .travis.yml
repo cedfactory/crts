@@ -1,0 +1,13 @@
+dist: bionic # ubuntu 18.04
+language: python
+python:
+  - "3.8"      # current default Python on Travis CI
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+  - pip install pytest-cov
+# command to run tests
+script:
+  - pytest --cov=./
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
