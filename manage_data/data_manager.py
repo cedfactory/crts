@@ -1,18 +1,28 @@
 import datetime
+import os
 import pandas as pd
 from scraping import scrap_yahoo_api,scrap_investing,scrap_tradingview_api
 from init import config
 from manage_data import tools,set_category
 
-def get_df(input_file):
+
+def read_csl_file(input_file):
     output_file = input_file.replace("CSL","CRTS")
     config.OUTPUT_FILENAME = config.OUTPUT_DIR + "/recom_df_" + output_file + ".csv"
 
     if (config.COLAB == True):
         config.COLAB_OUTPUT_FILENAME = config.COLAB_OUTPUT_DIR + "/recom_df_" + output_file + ".csv"
 
-    df = tools.read_CSL_file(input_file)
+    filename = input_file
+    if not os.path.exists(filename):
+        filename = config.INPUT_DIR + 'symbol_list_' + input_file + '.csv'
+    if not os.path.exists(filename):
+        print("no file: ", filename)
+        return None
+
+    df = pd.read_csv(filename)
     return df
+
 
 def save_df(df):
     df = tools.clean_up_df_symbol(df)

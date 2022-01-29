@@ -22,6 +22,6 @@ if __name__ == '__main__':
     input_file = str(sys.argv[2])
     input_file = input_file[2:]
 
-    df = data_manager.get_df(input_file)
+    df = data_manager.read_csl_file(input_file)
     if isinstance(df, pd.DataFrame):
         df = data_manager.add_market_recom(df)

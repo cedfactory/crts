@@ -7,7 +7,7 @@ class TestData_Manager:
 
     def test_data_manager_read_csl_file(self):
         # action
-        df = data_manager.get_df("./test/data/csl_sample.csv")
+        df = data_manager.read_csl_file("./test/data/csl_sample.csv")
 
         # expectations
         df.to_csv("./test/generated/test_data_manager_read_csl_file.csv")
