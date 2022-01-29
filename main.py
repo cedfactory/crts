@@ -6,6 +6,7 @@ sys.path.append("./init/")
 
 from manage_data import data_manager,tools
 from init import config
+import pandas as pd
 
 """
     CRTS module: Compute Recommendation Trend Signals
@@ -26,4 +27,5 @@ if __name__ == '__main__':
     input_file = input_file[2:]
 
     df = data_manager.get_df(input_file)
-    df = data_manager.add_market_recom(df)
+    if isinstance(df, pd.DataFrame):
+        df = data_manager.add_market_recom(df)
