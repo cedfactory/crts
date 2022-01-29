@@ -2,7 +2,7 @@ import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import pandas as pd
-import config
+from init import config
 
 from bs4 import BeautifulSoup
 

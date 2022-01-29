@@ -5,11 +5,10 @@ import numpy as np
 import datetime
 import uuid
 
-import config
 import concurrent.futures
 
-from tools import split_list_into_list
-from merge import merge_csv_to_df
+from init import config
+from manage_data import tools,merge
 
 from tradingview_ta import TA_Handler, Interval, Exchange
 
@@ -188,12 +187,12 @@ def get_tradingview_recommendation(df):
 
     START_TIME = datetime.datetime.now().now()
     if config.MULTITHREADING == True:
-        global_split_list = split_list_into_list(df, config.MULTITHREADING_NB_SPLIT_DF)
+        global_split_list = tools.split_list_into_list(df, config.MULTITHREADING_NB_SPLIT_DF)
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=config.MULTITHREADING_NUM_THREADS) as executor:
             executor.map(use_tradingview_multi_api, global_split_list)
 
-        df = merge_csv_to_df(config.MULTITHREADING_POOL, "*_result.csv")
+        df = merge.merge_csv_to_df(config.MULTITHREADING_POOL, "*_result.csv")
     else:
         df = use_tradingview_api(df)
 

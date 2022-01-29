@@ -20,16 +20,13 @@ import pandas as pd
 import numpy as np
 import uuid
 
-from tools import split_list_into_list
-from merge import merge_csv_to_df
+from manage_data import tools,merge
+from init import config
 
-import config
 import datetime
 import concurrent.futures
 from datetime import date, timedelta
-from load_investing_data import investing_moving_averages
-from load_investing_data import investing_data_from_tag
-from load_investing_data import investing_validate_tag
+from .load_investing_data import investing_moving_averages,investing_data_from_tag,investing_validate_tag
 
 def insert_df_column(df):
     columns = ["investing_symbol", "investing_country", "investing_company_name",
@@ -165,12 +162,12 @@ def get_investing_recommendation(df):
 
     print("GET INVESTING.COM RECOM:")
     if config.MULTITHREADING == True:
-        global_split_list = split_list_into_list(df, config.MULTITHREADING_NB_SPLIT_DF)
+        global_split_list = tools.split_list_into_list(df, config.MULTITHREADING_NB_SPLIT_DF)
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=config.MULTITHREADING_NUM_THREADS) as executor:
             executor.map(use_investpy_multi_api, global_split_list)
 
-        df = merge_csv_to_df(config.MULTITHREADING_POOL, "*_result.csv")
+        df = merge.merge_csv_to_df(config.MULTITHREADING_POOL, "*_result.csv")
 
     else:
         df = use_investpy_api(df)

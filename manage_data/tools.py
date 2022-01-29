@@ -1,8 +1,7 @@
 import os, fnmatch
 import pandas as pd
 import random
-import config
-import constant
+from init import config,constant
 
 def read_CSL_file(input_file):
     filename = input_file

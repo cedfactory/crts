@@ -8,10 +8,8 @@ from unidecode import unidecode
 from bs4 import BeautifulSoup
 import re
 
-import config
-import constant
-
-from tools import my_random_user_agent
+from init import config,constant
+from manage_data import tools
 
 def investing_moving_averages(name, country, id, product_type, interval="daily"):
     """
@@ -85,7 +83,7 @@ def investing_moving_averages(name, country, id, product_type, interval="daily")
 
 
     headers = {
-        "User-Agent": my_random_user_agent(),
+        "User-Agent": tools.my_random_user_agent(),
         "X-Requested-With": "XMLHttpRequest",
         "Accept": "text/html",
         "Accept-Encoding": "gzip, deflate",
@@ -169,7 +167,7 @@ def investing_data_from_tag(tag, interval="daily"):
     }
 
     headers = {
-        "User-Agent": my_random_user_agent(),
+        "User-Agent": tools.my_random_user_agent(),
         "X-Requested-With": "XMLHttpRequest",
         "Accept": "text/html",
         "Accept-Encoding": "gzip, deflate",

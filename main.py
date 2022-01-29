@@ -1,9 +1,5 @@
 import sys
 
-sys.path.append("./manage_data/")
-sys.path.append("./scraping/")
-sys.path.append("./init/")
-
 from manage_data import data_manager,tools
 from init import config
 import pandas as pd
